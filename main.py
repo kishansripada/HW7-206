@@ -81,6 +81,26 @@ def make_players_table(data, cur, conn):
   conn.commit()
 
 
+## [TASK 2]: 10 points
+# Finish the function nationality_search
+
+# This function takes 3 arguments as input: a list of countries,
+# the database cursor, and database connection object.
+
+
+# It selects all the players from any of the countries in the list
+# and returns a list of tuples. Each tuple contains:
+# the player's name, their position_id, and their nationality.
+def nationality_search(countries, cur, conn):
+  player_data = []
+  for nation in countries:
+    cur.execute(
+      "select name, position_id, nationality FROM Players where nationality=?",
+      (nation, ))
+    player_data += cur.fetchall()
+  return player_data
+
+
 # [EXTRA CREDIT]
 # You’ll make 3 new functions, make_winners_table(), make_seasons_table(),
 # and winners_since_search(),
