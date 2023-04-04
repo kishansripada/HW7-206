@@ -101,6 +101,29 @@ def nationality_search(countries, cur, conn):
   return player_data
 
 
+## [TASK 3]: 10 points
+# finish the function birthyear_nationality_search
+
+#     This function takes 4 arguments as input:
+#     an age in years (int),
+#     a country (string), the database cursor,
+#     and the database connection object.
+
+
+#     It selects all the players from the country passed to the function
+#     that were born BEFORE (2023 minus the year passed)
+#     for example: if we pass 19 for the year, it should return
+#     players with birthdates BEFORE 2004
+#     This function returns a list of tuples each containing
+#     the player’s name, nationality, and birth year.
+def birthyear_nationality_search(age, nation, cur, conn):
+  cur.execute(
+    "select name, nationality, birthyear from Players where nationality=? AND birthyear<?",
+    (nation, 2023 - age))
+  result = cur.fetchall()
+  return result
+
+
 # [EXTRA CREDIT]
 # You’ll make 3 new functions, make_winners_table(), make_seasons_table(),
 # and winners_since_search(),
